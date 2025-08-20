@@ -43,7 +43,7 @@ This project uses a decoupled architecture to separate concerns and improve scal
 ### System Architecture
 ```mermaid
 graph TD
-    A[User] --> B[Streamlit Frontend]
+    A[User] --> B[Next.js Frontend]
     B --> C[FastAPI Backend]
 
     %% Authentication & History
