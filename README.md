@@ -43,12 +43,11 @@ This project uses a decoupled architecture to separate concerns and improve scal
 ### System Architecture
 ```mermaid
 graph TD
-    A[User] --> B[Next.js Frontend]
+    A[User] --> B[Streamlit Frontend]
     B --> C[FastAPI Backend]
 
     %% Authentication & History
-    B -->|User Auth (supabase-js)| D[Supabase Auth/DB]
-    C -->|Chat History| D
+    C -->|User Auth & Chat History| D[Supabase Auth/DB]
 
     %% PDF Upload & Embedding
     B -->|Upload PDF| C
@@ -66,6 +65,7 @@ graph TD
 
     %% Response back to UI
     C -->|Stream Response| B
+
 ```
 
 ## ⚙️ Getting Started
