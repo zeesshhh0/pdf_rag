@@ -9,7 +9,6 @@ import { useClerk, UserButton } from "@clerk/nextjs";
 
 export const Navbar = () => {
   const { theme, setTheme } = useTheme();
-  const { isSignedIn } = useClerk();
   const [mounted, setMounted] = useState(false);
 
   // Avoid hydration mismatch
@@ -35,15 +34,6 @@ export const Navbar = () => {
           )}
           <span className="sr-only">Toggle theme</span>
         </Button>
-        {isSignedIn ? (
-          <div className="flex flex-row gap-2">
-            <UserButton />
-          </div>
-        ) : (
-          <Link href="/sign-in">
-            <Button>Sign In</Button>
-          </Link>
-        )}
       </div>
     </div>
   );
