@@ -4,8 +4,8 @@ import { PreviewMessage, ThinkingMessage } from "@/components/message";
 import { MultimodalInput } from "@/components/multimodal-input";
 import { Overview } from "@/components/overview";
 import { useScrollToBottom } from "@/hooks/use-scroll-to-bottom";
-import { ToolInvocation } from "ai";
-import { useChat } from '@ai-sdk/react';
+import { Message, ToolInvocation } from "ai";
+import { useChat } from '@ai-sdk/react'
 import { toast } from "sonner";
 
 export function Chat() {
@@ -22,7 +22,7 @@ export function Chat() {
     stop,
   } = useChat({
     maxSteps: 4,
-    onError: (error) => {
+    onError: (error: { message: string | string[]; }) => {
       if (error.message.includes("Too many requests")) {
         toast.error(
           "You are sending too many messages. Please try again later.",
@@ -42,7 +42,7 @@ export function Chat() {
       >
         {messages.length === 0 && <Overview />}
 
-        {messages.map((message, index) => (
+        {messages.map((message: Message, index: number) => (
           <PreviewMessage
             key={message.id}
             chatId={chatId}

@@ -4,6 +4,16 @@ import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { dark } from '@clerk/themes'
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
+
 
 export const metadata = {
   title: "AI SDK Python Streaming Preview",
@@ -32,20 +42,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head></head>
-      <body className={cn(GeistSans.className, "antialiased")}suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Toaster position="top-center" richColors />
-          <Navbar />
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+      }}
+    >
+      <html lang="en" suppressHydrationWarning>
+        <head></head>
+        <body className={cn(GeistSans.className, "antialiased")} suppressHydrationWarning>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            disableTransitionOnChange
+          >
+            <Toaster position="top-center" richColors />
+            <Navbar />
+            <div className="bg-background">
+              {children}
+            </div>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
