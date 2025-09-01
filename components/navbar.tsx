@@ -1,24 +1,39 @@
 "use client";
 
 import { Button } from "./ui/button";
-import { GitIcon, VercelIcon } from "./icons";
+import { Moon, Sun } from "lucide-react";
 import Link from "next/link";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export const Navbar = () => {
-  return (
-    <div className="p-2 flex flex-row gap-2 justify-between">
-      <Link href="https://github.com/vercel-labs/ai-sdk-preview-python-streaming">
-        <Button variant="outline">
-          <GitIcon /> View Source Code
-        </Button>
-      </Link>
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-      <Link href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel-labs%2Fai-sdk-preview-python-streaming&env=OPENAI_API_KEY%2CVERCEL_FORCE_PYTHON_STREAMING&envDescription=API+keys+needed+for+application&envLink=https%3A%2F%2Fgithub.com%2Fvercel-labs%2Fai-sdk-preview-python-streaming%2Fblob%2Fmain%2F.env.example&teamSlug=vercel-labs">
-        <Button>
-          <VercelIcon />
-          Deploy with Vercel
+  // Avoid hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  return (
+    <div className="p-2 flex flex-row gap-2 justify-between bg-background">
+      <div className="flex flex-row gap-2">
+      </div>
+      <div className="flex flex-row gap-2">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          className="hover:bg-accent"
+        >
+          {mounted && theme === "dark" ? (
+            <Sun className="h-4 w-4" />
+          ) : (
+            <Moon className="h-4 w-4" />
+          )}
+          <span className="sr-only">Toggle theme</span>
         </Button>
-      </Link>
+      </div>
     </div>
   );
-};
+};  
